@@ -1,8 +1,11 @@
-# CAN Bus Loopback Test
+# Tinymovr Arduino Nano CAN Bus Shield
 
-A diagnostic Arduino sketch for testing MCP25625 CAN Bus shields using loopback mode. This project helps verify that your CAN hardware is functioning correctly before connecting to a real CAN network.
+This is the official repository for the [Tinymovr Arduino Nano CAN Bus Shield](https://tinymovr.com/products/arduino).
 
-This is the official repository for the [Arduino Nano CAN Bus Shield](https://tinymovr.com/products/arduino).
+The included example sketch provides a diagnostic loopback test for the shield. This helps verify that your CAN hardware is functioning correctly before connecting to a real CAN network.
+
+![Arduino Nano CAN Bus Shield - Front](nano-shield-1.png)
+![Arduino Nano CAN Bus Shield - Back](nano-shield-2.png)
 
 ## Features
 
@@ -13,8 +16,9 @@ This is the official repository for the [Arduino Nano CAN Bus Shield](https://ti
 
 ## Hardware Requirements
 
-- Arduino board (Uno, Mega, etc.)
-- MCP25625 CAN Bus shield with:
+- Arduino Nano (or compatible board)
+- [Tinymovr Arduino Nano CAN Bus Shield](https://tinymovr.com/products/arduino)
+  - MCP25625 CAN controller with integrated transceiver
   - 16MHz crystal oscillator
   - AP3602 5V boost regulator
   - Standard SPI connection
