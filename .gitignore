@@ -1,0 +1,52 @@
+# Arduino build files
+*.hex
+*.elf
+*.eep
+*.lss
+*.map
+*.sym
+
+# Arduino IDE files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Build directories
+build/
+*.build/
+
+# VS Code Arduino extension
+.vscode/
+*.code-workspace
+
+# Platform IO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
