@@ -48,6 +48,34 @@ This sketch requires the **autowp-mcp2515** library:
 
 Or install manually from: https://github.com/autowp/arduino-mcp2515
 
+## Configuration
+
+### CAN Bitrate
+
+The CAN bitrate can be configured at the top of the sketch ([CANBusLoopback.ino:15](CANBusLoopback.ino#L15)):
+
+```cpp
+const CAN_SPEED CAN_BITRATE = CAN_500KBPS;  // Change this to match your CAN network
+```
+
+**Supported bitrates:**
+- `CAN_5KBPS` - 5 kbps
+- `CAN_10KBPS` - 10 kbps
+- `CAN_20KBPS` - 20 kbps
+- `CAN_31K25BPS` - 31.25 kbps
+- `CAN_33KBPS` - 33 kbps
+- `CAN_40KBPS` - 40 kbps
+- `CAN_50KBPS` - 50 kbps
+- `CAN_80KBPS` - 80 kbps
+- `CAN_100KBPS` - 100 kbps
+- `CAN_125KBPS` - 125 kbps (common in automotive)
+- `CAN_200KBPS` - 200 kbps
+- `CAN_250KBPS` - 250 kbps (common in industrial)
+- `CAN_500KBPS` - 500 kbps (default, common in automotive)
+- `CAN_1000KBPS` - 1000 kbps (1 Mbps)
+
+**Important:** The bitrate must match all other devices on your CAN network. Using different bitrates will prevent communication.
+
 ## Usage
 
 ### Testing in Loopback Mode (Default)
@@ -74,20 +102,15 @@ Loop #1
 
 ### Connecting to a Real CAN Network
 
-1. Connect your CAN shield to a CAN bus (CANH and CANL)
-2. Ensure proper termination resistors (120Ω) on the bus
-3. In the code, comment out line 78 and uncomment line 86:
+1. **Configure the bitrate** to match your CAN network (see [Configuration](#configuration) section above)
+2. Connect your CAN shield to a CAN bus (CANH and CANL)
+3. Ensure proper termination resistors (120Ω) on the bus
+4. In the code, comment out the loopback mode line and uncomment normal mode:
    ```cpp
    // mcp.setLoopbackMode();  // Comment this out
    mcp.setNormalMode();       // Uncomment this line
    ```
-4. Upload and monitor for real CAN traffic
-
-## CAN Bus Configuration
-
-- **Bitrate**: 500 kbps
-- **Crystal**: 16 MHz
-- **Mode**: Loopback (for testing) or Normal (for production)
+5. Upload and monitor for real CAN traffic
 
 ## Troubleshooting
 
@@ -103,6 +126,14 @@ Loop #1
 - Check that loopback mode is enabled
 - Verify the MCP2515 initialized successfully
 - Try increasing the delay between send and receive
+
+### No Messages Received on Real CAN Network
+
+- **Verify bitrate matches** - All devices must use the same bitrate
+- Check CANH and CANL connections
+- Ensure proper bus termination (120Ω resistors at both ends)
+- Confirm you've switched to normal mode (not loopback)
+- Check that other devices are actively transmitting
 
 ### Hardware Not Responding
 

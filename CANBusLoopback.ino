@@ -8,11 +8,39 @@ const int PIN_CAN_RST  = 5;  // [cite: 26, 171]
 const int PIN_CAN_STBY = 9;  // [cite: 79]
 const int PIN_5V_SHDN  = 8;  // [cite: 74]
 
+// --- CAN Bus Configuration ---
+// Supported bitrates: CAN_5KBPS, CAN_10KBPS, CAN_20KBPS, CAN_31K25BPS, CAN_33KBPS,
+//                     CAN_40KBPS, CAN_50KBPS, CAN_80KBPS, CAN_100KBPS, CAN_125KBPS,
+//                     CAN_200KBPS, CAN_250KBPS, CAN_500KBPS, CAN_1000KBPS
+const CAN_SPEED CAN_BITRATE = CAN_500KBPS;  // Change this to match your CAN network
+const CAN_CLOCK CAN_CLOCK_FREQ = MCP_16MHZ;  // Shield uses 16MHz crystal
+
 // Create the MCP2515 instance
 MCP2515 mcp(PIN_CAN_CS);
 
 // Create a buffer for holding messages
 struct can_frame canMsg;
+
+// Helper function to print bitrate in human-readable format
+void printBitrate(CAN_SPEED speed) {
+  switch (speed) {
+    case CAN_5KBPS:    Serial.print("5 kbps"); break;
+    case CAN_10KBPS:   Serial.print("10 kbps"); break;
+    case CAN_20KBPS:   Serial.print("20 kbps"); break;
+    case CAN_31K25BPS: Serial.print("31.25 kbps"); break;
+    case CAN_33KBPS:   Serial.print("33 kbps"); break;
+    case CAN_40KBPS:   Serial.print("40 kbps"); break;
+    case CAN_50KBPS:   Serial.print("50 kbps"); break;
+    case CAN_80KBPS:   Serial.print("80 kbps"); break;
+    case CAN_100KBPS:  Serial.print("100 kbps"); break;
+    case CAN_125KBPS:  Serial.print("125 kbps"); break;
+    case CAN_200KBPS:  Serial.print("200 kbps"); break;
+    case CAN_250KBPS:  Serial.print("250 kbps"); break;
+    case CAN_500KBPS:  Serial.print("500 kbps"); break;
+    case CAN_1000KBPS: Serial.print("1000 kbps"); break;
+    default:           Serial.print("Unknown"); break;
+  }
+}
 
 void setup() {
   Serial.begin(115200);
@@ -58,9 +86,11 @@ void setup() {
   mcp.reset();
   Serial.println("  - Software reset complete");
 
-  // Config: 500kbps speed, 16MHz Crystal (matches Y1 on schematic)
-  Serial.println("  - Setting bitrate (500kbps, 16MHz)...");
-  if (mcp.setBitrate(CAN_500KBPS, MCP_16MHZ) == MCP2515::ERROR_OK) {
+  // Config: Set bitrate and crystal frequency
+  Serial.print("  - Setting bitrate (");
+  printBitrate(CAN_BITRATE);
+  Serial.println(")...");
+  if (mcp.setBitrate(CAN_BITRATE, CAN_CLOCK_FREQ) == MCP2515::ERROR_OK) {
     Serial.println("  - Bitrate set successfully!");
   } else {
     Serial.println("  - ERROR: Failed to set bitrate!");
