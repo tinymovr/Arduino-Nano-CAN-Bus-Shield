@@ -15,6 +15,9 @@ const int PIN_5V_SHDN  = 8;  // [cite: 74]
 const CAN_SPEED CAN_BITRATE = CAN_500KBPS;  // Change this to match your CAN network
 const CAN_CLOCK CAN_CLOCK_FREQ = MCP_16MHZ;  // Shield uses 16MHz crystal
 
+// --- Serial Configuration ---
+const unsigned long SERIAL_TIMEOUT_MS = 3000;  // Timeout for Serial Monitor connection
+
 // Create the MCP2515 instance
 MCP2515 mcp(PIN_CAN_CS);
 
@@ -44,7 +47,11 @@ void printBitrate(CAN_SPEED speed) {
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial); // Wait for Serial Monitor
+
+  // Wait for Serial Monitor with timeout (for compatibility with all Nano boards)
+  unsigned long startTime = millis();
+  while (!Serial && (millis() - startTime < SERIAL_TIMEOUT_MS));
+
   Serial.println("Starting CAN Shield Test...");
   Serial.println();
 

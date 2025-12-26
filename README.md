@@ -16,7 +16,14 @@ The included example sketch provides a diagnostic loopback test for the shield. 
 
 ## Hardware Requirements
 
-- Arduino Nano (or compatible board)
+- Arduino Nano or compatible board (any Nano form factor)
+  - Classic Arduino Nano (ATmega328P)
+  - Arduino Nano Every
+  - Arduino Nano 33 IoT
+  - Arduino Nano 33 BLE
+  - Arduino Nano RP2040 Connect
+  - Arduino Nano ESP32
+  - Compatible clones
 - [Tinymovr Arduino Nano CAN Bus Shield](https://tinymovr.com/products/arduino)
   - MCP25625 CAN controller with integrated transceiver
   - 16MHz crystal oscillator
